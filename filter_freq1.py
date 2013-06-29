@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 import numpy
 import scikits.audiolab as audio
@@ -5,9 +7,13 @@ import matplotlib.pyplot as plt
 import random
 
 def frequencyFilter(signal):
-   starting_freq = 6000
-   for i in range(starting_freq, len(signal)-starting_freq):
-      signal[i] = 0
+   print "Len signal:", len(signal)
+   starting_freq = 0
+   ending_freq = 190000 #len(signal)
+   for i in range(0, len(signal)):
+      signal[i] *= 2
+      if starting_freq < i < ending_freq:
+          signal[i] = 0
 
 def processWithNumpy(signal):
    transformedSignal = numpy.fft.fft(signal)

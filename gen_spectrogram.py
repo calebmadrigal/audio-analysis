@@ -6,6 +6,7 @@ from scikits.audiolab import Format, Sndfile
 from matplotlib.mlab import specgram
 
 DEFAULT_DISPLAY_SAMPLE_RATE = 1000 #Hz
+num_channels = 1
 
 def usage():
     print "USAGE:", sys.argv[0], "<sound file path> [display sample rate] [outfile]"
@@ -42,7 +43,10 @@ if __name__ == "__main__":
     wave = []
     for i in xrange(samples_to_take):
         frame_offset = i * time_step_for_samples
-        wave.append(sound_data[frame_offset][0])
+        if num_channels == 1:
+            wave.append(sound_data[frame_offset])
+        else: # must be 2
+            wave.append(sound_data[frame_offset][0])
 
     fig = pylab.figure()
     fig.set_size_inches(12,7)
